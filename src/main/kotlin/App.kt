@@ -20,7 +20,12 @@ val unwatchedVideos = listOf(
     Video(3, "Kotlin and Spring Boot", "Nicolas Frankel", "https://youtu.be/pSiZVAeReeg")
 )
 
+val watchedVideos = listOf(
+    Video(4, "Creating Internal DSLs in Kotlin", "Venkat Subramaniam", "https://youtu.be/JzTeAM8N1-o")
+)
+
 val App = FC<Props> {
+    var currentVideo: Video? by useState(null)
     // typesafe HTML goes here, starting with the first h1 tag!
     h1 {
         +"Hello, Hui Ren!"
@@ -31,6 +36,20 @@ val App = FC<Props> {
         }
         VideoList{
             videos = unwatchedVideos
+            selectedVideo = currentVideo
+            onSelectVideo = { video ->
+                currentVideo = video
+            }
+        }
+        h3 {
+            +"Watched videos"
+        }
+        VideoList{
+            videos = watchedVideos
+            selectedVideo = currentVideo
+            onSelectVideo = { video ->
+                currentVideo = video
+            }
         }
     }
     div {

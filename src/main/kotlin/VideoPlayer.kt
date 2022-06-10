@@ -4,7 +4,6 @@ import react.css.css
 import react.dom.html.ReactHTML.button
 import react.dom.html.ReactHTML.div
 import react.dom.html.ReactHTML.h3
-import react.dom.html.ReactHTML.img
 
 external interface VideoPlayerProps : Props {
     var video: Video
@@ -18,6 +17,7 @@ val VideoPlayer = FC<VideoPlayerProps> { props ->
             position = Position.absolute
             top = 10.px
             right = 100.px
+            width = 500.px
         }
         h3 {
             +"${props.video.speaker}: ${props.video.title}"
@@ -25,7 +25,10 @@ val VideoPlayer = FC<VideoPlayerProps> { props ->
         button {
             css {
                 display = Display.block
-                backgroundColor = if (props.unwatchedVideo) NamedColor.lightgreen else NamedColor.red
+                width = 200.px
+                height = 30.px
+                fontWeight = FontWeight.bold
+                backgroundColor = if (props.unwatchedVideo) NamedColor.lightgreen else NamedColor.orange
             }
             onClick = {
                 props.onWatchedButtonPressed(props.video)
@@ -36,8 +39,8 @@ val VideoPlayer = FC<VideoPlayerProps> { props ->
                 +"Mark as unwatched"
             }
         }
-        img {
-            src = "https://via.placeholder.com/640x360.png?text=Video+Player+Placeholder"
+        ReactPlayer {
+            url = props.video.videoUrl
         }
     }
 }
